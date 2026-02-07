@@ -1,0 +1,56 @@
+build/
+.gradle/
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+local.properties
+
+# Gradle
+gradle-wrapper.jar
+.gradle
+
+# IDE
+*.class
+*.log
+app/debug/
+app/release/
+*.jks
+*.keystore
+
+# Misc
+.classpath
+.project
+.settings/
+bin/
+gen/
+
+# CMake
+.cxx/
+
+# Compiled bytecode
+*.dex
+*.class
+
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
