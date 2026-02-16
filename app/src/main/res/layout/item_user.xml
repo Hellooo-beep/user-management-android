@@ -26,9 +26,9 @@
         android:textColor="#555555"
         android:layout_marginBottom="4dp" />
 
-    <!-- User Phone -->
+    <!-- User Role -->
     <TextView
-        android:id="@+id/itemPhoneTextView"
+        android:id="@+id/itemRoleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements UserAdapter.OnUserActionListener {
 
     // UI Components
-    private EditText nameEditText;
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
     private EditText emailEditText;
-    private EditText phoneEditText;
+    private EditText passwordEditText;
+    private EditText roleEditText;
     private Button addButton;
     private Button updateButton;
     private Button fetchButton;
@@ -58,9 +61,11 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
 
     // Initialize all views from XML layout
     private void initializeViews() {
-        nameEditText = findViewById(R.id.nameEditText);
+        firstNameEditText = findViewById(R.id.firstNameEditText);
+        lastNameEditText = findViewById(R.id.lastNameEditText);
         emailEditText = findViewById(R.id.emailEditText);
-        phoneEditText = findViewById(R.id.phoneEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        roleEditText = findViewById(R.id.roleEditText);
         addButton = findViewById(R.id.addButton);
         updateButton = findViewById(R.id.updateButton);
         fetchButton = findViewById(R.id.fetchButton);
@@ -89,18 +94,20 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
 
     // HANDLE ADD USER
     private void handleAddUser() {
-        String name = nameEditText.getText().toString().trim();
+        String firstName = firstNameEditText.getText().toString().trim();
+        String lastName = lastNameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
-        String phone = phoneEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String role = roleEditText.getText().toString().trim();
 
         // Validation
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || role.isEmpty()) {
             showToast("Please fill all fields");
             return;
         }
 
         // Create user object
-        User newUser = new User(name, email, phone);
+        User newUser = new User(firstName, lastName, email, password, role);
 
         // Make API call
         apiService.createUser(newUser).enqueue(new Callback<User>() {
@@ -111,7 +118,12 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
                     clearFields();
                     fetchAllUsers(); // Refresh list
                 } else {
-                    showToast("Error adding user");
+                    try {
+                        String errorBody = response.errorBody().string();
+                        showToast("Error: " + errorBody);
+                    } catch (IOException e) {
+                        showToast("Error adding user: " + response.code());
+                    }
                 }
             }
 
@@ -129,16 +141,18 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
             return;
         }
 
-        String name = nameEditText.getText().toString().trim();
+        String firstName = firstNameEditText.getText().toString().trim();
+        String lastName = lastNameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
-        String phone = phoneEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String role = roleEditText.getText().toString().trim();
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || role.isEmpty()) {
             showToast("Please fill all fields");
             return;
         }
 
-        User updatedUser = new User(editingUserId, name, email, phone);
+        User updatedUser = new User(editingUserId, firstName, lastName, email, password, role);
 
         apiService.updateUser(editingUserId, updatedUser).enqueue(new Callback<User>() {
             @Override
@@ -149,7 +163,12 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
                     editingUserId = null;
                     fetchAllUsers();
                 } else {
-                    showToast("Error updating user");
+                    try {
+                        String errorBody = response.errorBody().string();
+                        showToast("Error: " + errorBody);
+                    } catch (IOException e) {
+                        showToast("Error updating user: " + response.code());
+                    }
                 }
             }
 
@@ -184,9 +203,11 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
 
     // CLEAR INPUT FIELDS
     private void clearFields() {
-        nameEditText.setText("");
+        firstNameEditText.setText("");
+        lastNameEditText.setText("");
         emailEditText.setText("");
-        phoneEditText.setText("");
+        passwordEditText.setText("");
+        roleEditText.setText("");
         editingUserId = null;
     }
 
@@ -199,15 +220,17 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
     @Override
     public void onEdit(User user) {
         // Fill fields with user data
-        nameEditText.setText(user.getName());
+        firstNameEditText.setText(user.getFirstName());
+        lastNameEditText.setText(user.getLastName());
         emailEditText.setText(user.getEmail());
-        phoneEditText.setText(user.getPhone());
+        passwordEditText.setText("");
+        roleEditText.setText(user.getRole());
 
         // Store the user ID for update
         editingUserId = user.getId();
 
         // Show message
-        showToast("Editing user: " + user.getName());
+        showToast("Editing user: " + user.getFirstName());
     }
 
     @Override
@@ -220,7 +243,12 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.OnUse
                     showToast("User deleted successfully!");
                     fetchAllUsers(); // Refresh list
                 } else {
-                    showToast("Error deleting user");
+                    try {
+                        String errorBody = response.errorBody().string();
+                        showToast("Error: " + errorBody);
+                    } catch (IOException e) {
+                        showToast("Error deleting user: " + response.code());
+                    }
                 }
             }
 

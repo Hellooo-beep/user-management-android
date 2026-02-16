@@ -2,71 +2,93 @@ package com.example.usermanagementapp;
 
 public class User {
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String phone;
+    private String password;
+    private String role;
 
     // Constructor with all parameters
-    public User(Long id, String name, String email, String phone) {
+    public User(Long id, String firstName, String lastName, String email, String password, String role) {
         this.id = id;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.password = password;
+        this.role = role;
     }
 
     // Constructor without id (for creating new users)
-    public User(String name, String email, String phone) {
-        this.name = name;
+    public User(String firstName, String lastName, String email, String password, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
+        this.password = password;
+        this.role = role;
     }
 
     // Empty constructor (Gson needs this)
     public User() {
     }
 
-    // Getters (these give us access to the data)
+    // Getters
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPassword() {
+        return password;
     }
 
-    // Setters (these let us change the data)
+    public String getRole() {
+        return role;
+    }
+
+    // Setters
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    // toString - shows user info as text
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

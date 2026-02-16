@@ -57,7 +57,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public class UserViewHolder extends RecyclerView.ViewHolder {
         private TextView nameTextView;
         private TextView emailTextView;
-        private TextView phoneTextView;
+        private TextView roleTextView;
         private Button editButton;
         private Button deleteButton;
         private User currentUser;
@@ -67,7 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             // Find views by ID
             nameTextView = itemView.findViewById(R.id.itemNameTextView);
             emailTextView = itemView.findViewById(R.id.itemEmailTextView);
-            phoneTextView = itemView.findViewById(R.id.itemPhoneTextView);
+            roleTextView = itemView.findViewById(R.id.itemRoleTextView);
             editButton = itemView.findViewById(R.id.itemEditButton);
             deleteButton = itemView.findViewById(R.id.itemDeleteButton);
         }
@@ -75,9 +75,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         public void bind(User user) {
             this.currentUser = user;
             // Set the text for each field
-            nameTextView.setText("Name: " + user.getName());
+            nameTextView.setText(user.getFirstName() + " " + user.getLastName());
             emailTextView.setText("Email: " + user.getEmail());
-            phoneTextView.setText("Phone: " + user.getPhone());
+            roleTextView.setText("Role: " + user.getRole());
 
             // Edit button click listener
             editButton.setOnClickListener(v -> {

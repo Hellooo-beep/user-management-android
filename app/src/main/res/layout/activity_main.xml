@@ -26,10 +26,20 @@
         android:layout_marginBottom="16dp">
 
         <EditText
-            android:id="@+id/nameEditText"
+            android:id="@+id/firstNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter name"
+            android:hint="Enter first name"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/lastNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter last name"
             android:padding="10dp"
             android:layout_marginBottom="8dp"
             android:background="@android:drawable/edit_text"
@@ -47,14 +57,24 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/phoneEditText"
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter phone"
+            android:hint="Enter password (min 8 chars)"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text"
+            android:inputType="textPassword"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/roleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter role (e.g. ADMIN, USER)"
             android:padding="10dp"
             android:layout_marginBottom="12dp"
             android:background="@android:drawable/edit_text"
-            android:inputType="phone"
             android:textSize="14sp" />
 
         <!-- Buttons for Add and Update -->
